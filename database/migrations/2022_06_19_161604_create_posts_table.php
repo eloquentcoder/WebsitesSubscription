@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description');
             $table->boolean('is_published')->default(1);
             $table->unsignedBigInteger('website_id');
+            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('websites', function (Blueprint $table) {
             $table->id();
-            $table->string('website_name');
-            $table->string('uuid');
-            $table->string('website_url');
+            $table->string('website_name')->unique();
+            $table->string('uuid')->unique();
+            $table->string('website_url')->unique();
             $table->timestamps();
         });
     }
