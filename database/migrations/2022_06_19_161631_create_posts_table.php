@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('description');
+            $table->string('title')->unique();
+            $table->text('description');
             $table->boolean('is_published')->default(1);
             $table->unsignedBigInteger('website_id');
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade')->onUpdate('cascade');

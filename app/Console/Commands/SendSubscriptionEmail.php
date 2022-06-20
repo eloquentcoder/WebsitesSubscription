@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Website;
 use App\Services\SendSubscriptionAlertEmail;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SendSubscriptionEmail extends Command
 {
@@ -30,12 +31,18 @@ class SendSubscriptionEmail extends Command
      */
     public function handle()
     {
-        $website = Website::find($this->argument('website_id'));
-        $post = $website->posts()->create([
-            'title' => $this->argument('title'),
-            'description' => $this->argument('description'),
-        ]);
-
-        SendSubscriptionAlertEmail::sendEmail($website, $post);
+        $post_exists = Post::where('title', $this->argument('title'))->orWhere('description', $this->argument('description'))->exists();
+        Log::warning($post_exists);
+        if (!$post_exists) {
+            $website = Website::find($this->argument('website_id'));
+            $post = $website->posts()->create([
+                'title' => $this->argument('title'),
+                'description' => $this->argument('description'),
+            ]);
+    
+            SendSubscriptionAlertEmail::sendEmail($website, $post);
+        }
+        
+    
     }
 }

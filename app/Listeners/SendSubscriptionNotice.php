@@ -9,13 +9,6 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendSubscriptionNotice implements ShouldQueue
 {
-    /**
-     * The time (seconds) before the job should be processed.
-     *
-     * @var int
-     */
-    public $delay = 10;
-
 
     /**
      * Create the event listener.

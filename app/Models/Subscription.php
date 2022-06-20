@@ -29,4 +29,13 @@ class Subscription extends Model
         return $this->belongsTo(Website::class);
     }
 
+    /**
+     * Get the posts that belong to the the Subscription
+     *
+     */
+    public function posts()
+    {
+        return $this->belongsTo(SubscriptionPost::class);
+    }
+
 }
